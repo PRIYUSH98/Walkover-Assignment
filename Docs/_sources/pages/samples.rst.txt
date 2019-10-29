@@ -1,0 +1,74 @@
+Sample Tests
+============
+
+Sample 1
+--------
+
+Enter no. of rows in Grid:
+
+3
+
+Enter no. of columns in Grid:
+
+3
+
+For entering the position of cells manually Press 1
+
+For entering the position of cells automatically Press 0
+
+0
+
+Input Colony:
+
+[[1 1 1]
+
+[1 0 1]
+
+[0 1 0]]
+
+Final Colony:
+
+[[0 0 0]
+
+[0 0 0]
+
+[0 0 0]]
+
+Sample 2
+--------
+
+Enter no. of rows in Grid:
+
+4
+
+Enter no. of columns in Grid:
+
+4
+
+For entering the position of cells manually Press 1
+
+For entering the position of cells automatically Press 0
+
+1
+
+Enter the Positions:1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+Input Colony:
+
+[[1 1 1 1]
+
+[1 1 1 1]
+
+[1 1 1 1]
+
+[1 1 1 1]]
+
+Final Colony:
+
+[[0 0 0 0]
+
+[0 0 0 0]
+
+[0 0 0 0]
+ 
+[0 0 0 0]]

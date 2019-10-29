@@ -1,0 +1,9 @@
+Introduction
+============
+
+Your mission is to implement a hyped-up version of the game of Life, originally conceived by the
+British mathematician J.H. Conway in 1970 and popularized by Martin Gardner in his Scientific
+American column. The game is a simulation that models the life cycle of bacteria. Given an
+initial pattern, the game simulates the birth and death of future generations using simple rules.
+The game is played on a two-dimensional grid. Each grid location is either empty or occupied by
+a single cell (X). A location's neighbors are any cells in the surrounding eight adjacent locations.
