@@ -20,3 +20,4 @@ To get the colony underway, your program should offer the user a chance first de
 ## Instructions
 1. Download the complete repository.
 2. To access Documentation open the Index.html file in Docs Directory.
+3. To access Documentation in __PDF FORMAT__ open index.pdf
