@@ -13,20 +13,30 @@ class Game:
         self.n=True   
 
      
-    def CheckGrid(self):        #Function to Check that all inputs to the Grid are Either 1 or 0
+    def Check_Grid(self):        #Function to Check that all inputs to the Grid are Either 1 or 0
         for i in range(0,self.r):
             for j in range(0,self.c):
                 if(self.a1[i][j]==0 or self.a1[i][j]==1):
+                    if(i==self.r-1 and j==self.c-1):
+                        return True
                     continue
                 else:
                     print("Invalid Input")    
-                    sys.exit()
+                    return False
 
-    def InputGrid(self):         #Function to Print the Input Grid
+    #Function to exit the program if Invalid Input Encountered
+    def Invalid_Input(self):
+        check=self.Check_Grid()
+        if(check==False):
+            sys.exit()
+                    
+    #Function to Print the Input Grid
+    def Input_Grid(self):         
         print("Input Colony:")
         print(self.a1)
-
-    def Next_Generation_Computer(self):       #Function To Compute Next Generation 
+    
+    #Function To Compute The Neighbours
+    def Neighbours_Counter(self):        
         while(self.n==True):
             for i in range(0,self.r):
 
@@ -36,9 +46,14 @@ class Game:
                     #Not Checking Boundary Conditions when not a boundary postion of Grid
                     if(i-1>=0 and j-1>=0 and i+1<=self.r-1 and j+1<=self.c-1):  
 
-                        count=self.a1[i-1,j-1] + self.a1[i-1,j] + self.a1[i-1,j+1] + self.a1[i,j+1]+ self.a1[i,j-1] + self.a1[i+1,j-1] +self.a1[i+1,j+1]+self.a1[i+1,j]
-                    
-                    else:                                                       #Checking Boundary Conditions
+                        for k in range(-1,2):
+                            for m in range(-1,2):
+                                    count=count+self.a1[i+k,j+m]  
+                            
+                        count=count-self.a1[i,j]
+
+                    #Checking Boundary Conditions
+                    else:                                                       
                         if((i-1)>=0):
                             count+=self.a1[i-1,j]
                         if((i+1)<self.r):
@@ -56,24 +71,40 @@ class Game:
                         if((j-1)>=0):
                             count+=self.a1[i,j-1]
 
-                    #Assigning values to Next Generation Grid 
-                    if(count==2 and self.a1[i][j]==1):
-                        self.a2[i,j]=1
-                    else:
-                        if(count==3):
-                            self.a2[i,j]=1
-                        
-                        else:
-                            self.a2[i,j]=0
+                    self.Next_Generation(count,i,j)
+            self.Stable_Grid()    
+            self.Copy_Grid()
 
-            #Checking whether the Final Colony Computed                
-            if(np.array_equal(self.a2,self.a1)):
-                self.n=False
+        self.Final_Grid()    
 
-            #Copying the Values of Next Generation to Current Generation
-            self.a1=np.array(self.a2,copy=True)
-        
-        #Printing The Final Colony
+    #Function to compute the Next Generation
+    def Next_Generation(self,count,i,j):
+
+        #Assigning values to Next Generation Grid 
+        if(count==2 and self.a1[i][j]==1):
+            self.a2[i,j]=1
+        else:
+            if(count==3):
+                self.a2[i,j]=1
+            
+            else:
+                self.a2[i,j]=0    
+        return(self.a2[i,j])
+    
+    #Function to Check whether the Grid is Stable              
+    def Stable_Grid(self):
+        if(np.array_equal(self.a2,self.a1)):
+            self.n=False
+            return True
+        else:
+            return False
+    
+    #Function to Copy the Next Generation to Current Generation
+    def Copy_Grid(self):
+        self.a1=np.array(self.a2,copy=True)
+    
+    #Function to Printing The Final Colony
+    def Final_Grid(self):
         print("Final Colony:")
         print(self.a2)                   
 
@@ -91,11 +122,8 @@ def main():
     value=int(input())
 
     if(value==1):
+        l = list(map(int, input("Enter the Positions:").split())) 
         
-        for i in range(0,r):
-            for j in range(0,c):
-                x=int(input())
-                l.append(x)
     else:
 
         if(value==0):
@@ -113,11 +141,13 @@ def main():
 
     g=Game(r,c,a1,a2)     #Object Creation of Class Game
 
-    g.CheckGrid()
-    
-    g.InputGrid()
+    g.Check_Grid()
 
-    g.Next_Generation_Computer()
+    g.Invalid_Input()
+    
+    g.Input_Grid()
+
+    g.Neighbours_Counter()
 
 if __name__ =="__main__":
     main() 
